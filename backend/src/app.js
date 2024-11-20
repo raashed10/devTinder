@@ -7,7 +7,7 @@ app.get("/user", (req, res) => {
 })
 
 app.post("/user", async (req, res) => {
-    //logic
+    //database logic
     res.send("data successfully stored in database!!");
 })
 
