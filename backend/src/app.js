@@ -12,6 +12,7 @@ app.post("/user", async (req, res) => {
 })
 
 app.delete("/user", (req, res) => {
+    // delete logic
     res.send("data deleted!!");
 })
 
