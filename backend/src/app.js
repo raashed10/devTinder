@@ -1,23 +1,38 @@
 const express = require("express");
 const app = express();
-const port = 7777;
+const port = 5555;
 
-app.get("/user", (req, res) => {
-    res.send({firstName : "Mohammed", lastName : "Raashed"});
-})
+app.get(
+    "/user", 
+    (req,res,next) => {
+        console.log("handling the user route");
+        next();
+    },
 
-app.post("/user", async (req, res) => {
-    //database logic
-    res.send("data successfully stored in database!!");
-})
+    (req, res, next) => {
+        console.log("handling the 2nd user");
+        // res.send("2nd response");
+        next();
+    },
 
-app.delete("/user", (req, res) => {
-    // delete logic
-    res.send("data deleted!!");
-})
+    (req,res,next) => {
+        console.log("handling the 3rd user");
+        // res.send("3rd response");
+        next();
+    },
 
-app.use("/test", (req, res) => {
-    res.send("hello from the server!!");
-})
+    (req,res,next) => {
+        console.log("handling the 4th user");
+        // res.send("4th response");
+        next();
+    },
 
-app.listen(port);
+    (req,res,next) => {
+        console.log("handling the 5th user");
+        res.send("5th response");
+        },
+)
+
+app.listen(port, () => {
+    console.log(`server is successfully listening on port ${port}`); 
+});
