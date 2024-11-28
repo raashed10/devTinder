@@ -16,7 +16,7 @@ app.post("/signup", async (req, res) => {
         res.send("user added successfully..");
     }
     catch(err){
-        res.status(404).send("Error occured during saving the user");
+        res.status(404).send(`Error occured during saving the user => ${err.message}`);
     }
 
 })
@@ -63,10 +63,12 @@ app.patch("/user", async(req, res) => {
     const data = req.body;
 
     try {
-        const user = await User.findByIdAndUpdate(userId, data);
+        const user = await User.findByIdAndUpdate(userId, data, {
+            runValidator : true
+        });
         res.send("User updated successfully");
     } catch (err) {
-        res.status(404).send("couldnt update the information")
+        res.status(404).send("UPDATE FAILED" + err.message);
     }
 })
 // still learning and didnt pushed my (database-api)'s file on github
