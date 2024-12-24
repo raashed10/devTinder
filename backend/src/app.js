@@ -1,6 +1,7 @@
 const express = require("express");
 const connectDB = require('./config/database');
 const app = express();
+const dotenv = require("dotenv").config();
 const port = 5555;
 const User = require("./models/user")
 
@@ -58,17 +59,38 @@ app.delete("/user", async(req, res) => {
 })
 
 // update data of the user
-app.patch("/user", async(req, res) => {
-    const userId =  req.body.userId;
+app.patch("/user/:userId", async(req, res) => {
+    const userId =  req.params?.userId;
     const data = req.body;
 
     try {
+        const ALLOWED_UPDATES = [
+            "userId", 
+            "photoUrl", 
+            "about", 
+            "gender", 
+            "age", 
+            "skills"
+        ];
+    
+        const isUpdateAllowed = Object.keys(data).every((k) => {
+            ALLOWED_UPDATES.includes(k);
+        });
+    
+        if (!isUpdateAllowed) {
+            throw new Error("Update not allowed"); 
+        }
+
+        if (data?.skills.length > 10){
+            throw new Error("Skills cant be more than 10");
+        }
+
         const user = await User.findByIdAndUpdate(userId, data, {
             runValidator : true
         });
         res.send("User updated successfully");
     } catch (err) {
-        res.status(404).send("UPDATE FAILED" + err.message);
+        res.status(404).send("UPDATE FAILED : " + err.message);
     }
 })
 // still learning and didnt pushed my (database-api)'s file on github
