@@ -1,4 +1,4 @@
-## Memble - premeiring memes and matchs
+## Memble - premeiring memes and matches
  - 
 
 ## Tech Stack Insights
