@@ -1,4 +1,6 @@
-## Creating a Tinder like application for Devs
+## Dating Application premeiring memes
+ - 
 
+## Tech Stack Insights
  - end to end MERN stack application
- - zod for input validation will be updated in future
+ - more focused on Mongoose/MongoDB
